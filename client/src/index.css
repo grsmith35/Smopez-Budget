@@ -1,0 +1,47 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.header-style {
+  background-color: orange;
+}
+
+.sit-left {
+  justify-content: flex-start;
+}
+
+.sit-right {
+  justify-content: flex-end;
+}
+
+.card-text {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 2px;
+  border: 1px solid black;
+}
+
+.bills-name {
+  flex-shrink: 0;
+}
+
+.button-primary {
+  display: flex;
+  justify-content: flex-start;
+}
