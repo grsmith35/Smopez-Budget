@@ -44,7 +44,7 @@ export default function Home() {
                         <div className='col'>
                             Expected Balance
                         </div>
-                        <div className='col'>${state.account.balance}</div>
+                        <div className='col'>${state?.account?.balance}</div>
                     </div>
                     <hr />
                     <div style={{ backgroundColor: 'red'}}> Non-Automated Bills coming Due</div>

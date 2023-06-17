@@ -51,6 +51,7 @@ function App() {
                 <Route path="Bill" element={<BillView />} />
                 <Route path="Pay" element={<PayView />} />
                 <Route path="Budget" element={<BudgetsView />} />
+                <Route path="*" element={<Home />} />
               </Route>      
             </Routes>
           </StoreProvider>
