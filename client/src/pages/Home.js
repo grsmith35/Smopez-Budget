@@ -13,7 +13,7 @@ export default function Home() {
     // });
     const [state, dispatch] = useStoreContext();
     const { data, loading, error } = useQuery(QUERY_ACCOUNT, {
-        variables: { _id: '64820142c23f76f4c1519092'}
+        variables: { _id: "648f80ba56057c890b970041"}
     });
 
     
