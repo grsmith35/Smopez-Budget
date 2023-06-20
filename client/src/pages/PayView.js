@@ -1,6 +1,15 @@
 import React from "react";
+import { useStoreContext } from "../utils/GlobalState";
+import ModalForm from "../Components/ModalForm";
+import Button from 'react-bootstrap/Button';
+import { useMutation } from "@apollo/client";
+import { ADD_PAY } from "../utils/mutations";
 
 export default function PayView() {
+    const [addPay, setAddPay] = React.useState(false);
+    const [state, dispatch] = useStoreContext();
+    const [addNewPay, {error}] = useMutation(ADD_PAY)
+
     const paySources = [
         {
             name: "Taz's Salary",
@@ -29,11 +38,20 @@ export default function PayView() {
         console.log(e.target)
     }
 
+    const handleOpenModal = () => {
+        setAddPay(true)
+    }
+
     return (
         <>
             <h3>Pay Sources</h3>
-            
-            {paySources.map((pay) => (
+            {state?.account?.pay?.length === 0 && (
+                <div>Add your First Pay Source</div>
+            )}
+            <div>
+                <Button variant="primary" onClick={handleOpenModal}>Add Pay</Button>
+            </div>
+            {!!state?.account?.pay?.length && (state?.account?.pay?.map((pay) => (
                         <div className="card m-3" key={pay.name} id={pay.name} onClick={handleEditPay}>
                             <div className="card-title"><h3>{pay.name}</h3></div>
                             <hr />
@@ -42,7 +60,7 @@ export default function PayView() {
                             <div className="card-text">Consistency: {pay.consistency}</div>
                             <div className="card-text">Day: {pay.day}</div>
                         </div>
-                    ))}
+                    )))}
         </>
     )
 };

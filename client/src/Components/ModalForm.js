@@ -8,7 +8,6 @@ export default function ModalForm({title, fields, editFields, closeDialog, submi
 
     const handleFormChange = (e) => {
         const { name, value } = e.target;
-        console.log(e)
         const index = fields.map((field) => field.name).indexOf(name);
         const newField = fields[index];
         newField.value = value;
@@ -18,7 +17,7 @@ export default function ModalForm({title, fields, editFields, closeDialog, submi
     }
 
     return (
-        <Modal show={true} >
+        <Modal show={true} onHide={closeDialog}>
             <Modal.Dialog>
                 <Modal.Header closeButton>
                     <Modal.Title>{title}</Modal.Title>

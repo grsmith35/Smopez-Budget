@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { UPDATE_ACCOUNT, UPDATE_ACCOUNT_ID } from "./actions";
+import { UPDATE_ACCOUNT, UPDATE_ACCOUNT_ID, UPDATE_ACCOUNT_BILLS } from "./actions";
 
 export const reducer = (state, action) => {
     switch(action.type) {
@@ -12,6 +12,14 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 accountId: action.accountId
+            }
+        case UPDATE_ACCOUNT_BILLS:
+            return {
+                ...state,
+                account: {
+                    ...state.account,
+                    bills: action.bills
+                }
             }
     }
 }

@@ -13,10 +13,8 @@ export function formatDate(day) {
 
 export function formFieldCreator(field) {
     const { type } = field;
-    console.log(type);
     switch(type) {
         case 'text':
-            console.log('its text');
             return (
                 <Form.Group className="mb-3" controlId={field.name} key={`${field.title}-key`}>
                     <Form.Label>{field.title}</Form.Label>
@@ -24,7 +22,6 @@ export function formFieldCreator(field) {
                 </Form.Group>
             )
         case 'number':
-            console.log('its number')
             return (
                 <InputGroup className="mb-3">
                     <InputGroup.Text>$</InputGroup.Text>
@@ -33,7 +30,6 @@ export function formFieldCreator(field) {
                 </InputGroup>
             )
         case 'checkbox':
-            console.log('its checkbox')
             return (
                 <Form.Check // prettier-ignore
                     name={field.name}
