@@ -14,36 +14,47 @@ export default function BillView() {
     const [billAdded, setBillAdded] = React.useState();
     const [deleteBill] = useMutation(DELETE_BILL);
     const [billRemoved, setBillRemoved] = React.useState();
-
-    const bills = [
-        {
-            name: "Mortgage",
-            amount: 3000,
-            date: 1,
-            consistency: 'month',
-            source: 'SWBC',
-            Automated: true
-        },
-        {
-            name: "Taz's Car",
-            amount: 300,
-            date: 1,
-            consistency: 'month',
-            source: 'America First',
-            Automated: true
-        },
-        {
-            name: "Credit Card(chase)",
-            amount: 100,
-            date: 4,
-            consistency: 'month',
-            source: 'Chase',
-            Automated: false
-        },
-    ];
     
     const handleEditBill = (e) => {
-        console.log(e.target)
+        console.log(e.target.id);
+        const billToEdit = state?.account?.bills?.filter((bill) => bill._id === e.target.id)
+        setBillsForm([
+            {
+                title: "Bill Name",
+                type: "text",
+                name: "name",
+                value: billToEdit.name,
+                defaultValue: billToEdit.name
+            },
+            {
+                title: "Day of month Due",
+                type: "text",
+                name: 'date',
+                value: billToEdit.date,
+                defaultValue: billToEdit.date
+            },
+            {
+                title: "Source",
+                type: "text",
+                name: 'source',
+                value: billToEdit.source,
+                defaultValue: billToEdit.source
+            },
+            {
+                title: "Amount",
+                type: "number",
+                name: "amount",
+                value: billToEdit.amount,
+                defaultValue: billToEdit.amount
+            },{
+                title: "Automated",
+                type: "checkbox",
+                name: "automated",
+                value: billToEdit.automated,
+                defaultValue: billToEdit.automated
+            }
+        ])
+        setAddBill(true);
     }
 
     const handleOpenModal = () => {
@@ -87,7 +98,6 @@ export default function BillView() {
     }
 
     const handleDeleteBill = async (e) => {
-        console.log(e.target.id)
         const removedBill = await deleteBill({
             variables: { _id: `${e.target.id}`, accountId: "648f80ba56057c890b970041"}
         })
@@ -108,7 +118,7 @@ export default function BillView() {
     };
 
     React.useEffect(() => {
-        setTotalBills(() => bills.reduce((acc, obj) => { return acc + obj.amount; }, 0));
+        setTotalBills(() => state?.account?.bills?.reduce((acc, obj) => { return acc + obj.amount; }, 0));
     }, []);
 
     React.useEffect(() => {

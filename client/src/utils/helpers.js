@@ -18,15 +18,15 @@ export function formFieldCreator(field) {
             return (
                 <Form.Group className="mb-3" controlId={field.name} key={`${field.title}-key`}>
                     <Form.Label>{field.title}</Form.Label>
-                    <Form.Control type={field.type} name={field.name}/>
+                    <Form.Control type={field.type} name={field.name} defaultValue={field?.value.length > 0 ? field.value : ''}/>
                 </Form.Group>
             )
         case 'number':
             return (
                 <InputGroup className="mb-3">
                     <InputGroup.Text>$</InputGroup.Text>
-                    <Form.Control name={field.name} aria-label="Amount (to the nearest dollar)" />
-                    <InputGroup.Text>.00</InputGroup.Text>
+                    <Form.Control name={field.name} aria-label="Amount" defaultValue={field?.value > 0 ? field.value : 0}/>
+                    {/* <InputGroup.Text>.00</InputGroup.Text> */}
                 </InputGroup>
             )
         case 'checkbox':
@@ -35,7 +35,8 @@ export function formFieldCreator(field) {
                     name={field.name}
                     type={type}
                     id={`default-${field.type}`}
-                    label={`default ${field.title}`}
+                    label={`${field.title}`}
+                    defaultValue={field.value}
                 />
             )
     }
