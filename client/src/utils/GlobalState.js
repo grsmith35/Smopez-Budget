@@ -8,7 +8,8 @@ const { Provider } = StoreContext;
 const StoreProvider = ({ value = [], ...props}) => {
     const [state, dispatch] = useBudgetReducer({
         accountId: '',
-        account: {}
+        account: {},
+        charges: [],
     });
 
     return <Provider value={[state, dispatch]} {...props} />;

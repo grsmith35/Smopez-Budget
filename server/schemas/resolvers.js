@@ -9,10 +9,7 @@ const resolvers = {
             return await Account.findOne({ _id: _id})
             .populate('pays')
             .populate('bills')
-            .populate({
-                path: 'budgets',
-                populate: { path: 'charges'}
-            })
+            .populate('budgets')
         },
         getAccounts: async () => {
             return await Account.find()

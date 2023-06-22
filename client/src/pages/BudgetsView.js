@@ -32,7 +32,7 @@ export default function BudgetsView() {
             {
                 title: "Time Frame",
                 type: "dropdown",
-                items: ["Weekly, Bi-weekly, Bi-monthly, Monthly"],
+                items: [{ value: "Weekly", name: "Weekly" }, { name: "Bi-weekly", value: "Bi-weekly"}, { value: "Bi-monthly", name: "Bi-monthly" }, { value: "Monthly", name: "Monthly" }],
                 name: 'timePeriod',
                 value: ""
             },
@@ -60,7 +60,7 @@ export default function BudgetsView() {
             {
                 title: "Time Frame",
                 type: "dropdown",
-                items: ["Weekly, Bi-weekly, Bi-monthly, Monthly"],
+                items: [{ value: "Weekly", name: "Weekly" }, { name: "Bi-weekly", value: "Bi-weekly"}, { value: "Bi-monthly", name: "Bi-monthly" }, { value: "Monthly", name: "Monthly" }],
                 name: 'timePeriod',
                 value: budgetToEdit[0].timePeriod ,
                 defaultValue: budgetToEdit[0].timePeriod

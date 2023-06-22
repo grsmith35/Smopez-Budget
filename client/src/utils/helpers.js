@@ -49,12 +49,20 @@ export function formFieldCreator(field) {
                     <Form.Label>{field.title}</Form.Label>
                     <Form.Select className='mb-3' aria-label={field.name} name={field.name} defaultValue={field.value.length > 0 ?? field.value }>
                         <option>Please Select a Pay Consistency</option>
-                        <option value="Weekly">Weekly</option>
+                        {/* <option value="Weekly">Weekly</option>
                         <option value="Bi-weekly">Bi-weekly</option>
                         <option value="Bi-monthly">Bi-monthly</option>
-                        <option value="Monthly">Monthly</option>
+                        <option value="Monthly">Monthly</option> */}
+                        {field.items.map((i) => <option value={i.value}>{i.name}</option>)}
                     </Form.Select>
                 </>
+            )
+        case 'date':
+            return (
+                <div className='date-div'>  
+                    <label htmlFor='date' className='row form-label'>{field.title}</label>
+                    <input id='date' type='date' name='date' className='row form-control' defaultValue={field?.value}></input>
+                </div>
             )
     }
 }

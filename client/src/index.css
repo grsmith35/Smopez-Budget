@@ -59,6 +59,16 @@ code {
   color: gray;
   margin-left: 0;
   margin-right: 0;
+  margin-top: 0;
+}
+
+.drop-down {
+  margin-left: 3px;
+}
+
+.date-div {
+  margin-left: 12px;
+  margin-bottom: 12px;
 }
 
 .fixedbutton {

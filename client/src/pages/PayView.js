@@ -29,7 +29,7 @@ export default function PayView() {
         {
             title: "Consistency",
             type: "dropdown",
-            items: ["Weekly, Bi-weekly, Bi-monthly, Monthly"],
+            items: [{ value: "Weekly", name: "weekly" }, {value: "Bi-weekly", name: "Bi-weekly" }, { value: "Bi-monthly", name: "Bi-monthly" }, { value: "Monthly", name: "Monthly" }],
             name: 'consistency',
             value: ""
         },
@@ -67,7 +67,7 @@ export default function PayView() {
             {
                 title: "Consistency",
                 type: "dropdown",
-                items: ["Weekly, Bi-weekly, Bi-monthly, Monthly"],
+                items: [{ value: "Weekly", name: "weekly" }, {value: "Bi-weekly", name: "Bi-weekly" }, { value: "Bi-monthly", name: "Bi-monthly" }, { value: "Monthly", name: "Monthly" }],
                 name: 'consistency',
                 value: payToEdit[0].consistency,
                 defaultValue: payToEdit[0].consistency

@@ -7,6 +7,7 @@ import { formFieldCreator } from "../utils/helpers";
 export default function ModalForm({title, fields, editFields, closeDialog, submitFunction}) {
 
     const handleFormChange = (e) => {
+        console.log(e)
         const { name, value, type } = e.target;
         const index = fields.map((field) => field.name).indexOf(name);
         
@@ -32,10 +33,6 @@ export default function ModalForm({title, fields, editFields, closeDialog, submi
                 <Modal.Body>
                     <Form onChange={handleFormChange}>
                     {fields.map((field) => (
-                        // <Form.Group className="mb-3" controlId={field.name} key={`${field.title}-key`}>
-                        //     <Form.Label>{field.title}</Form.Label>
-                        //     <Form.Control type={field.type} name={field.name}/>
-                        // </Form.Group>
                         formFieldCreator(field)
                     ))}
                     </Form>
