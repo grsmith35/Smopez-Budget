@@ -37,7 +37,6 @@ const typeDefs = gql`
         name: String!,
         timePeriod: String!,
         amount: Int!
-        charges: [Charge]
     }
 
     type Charge {
@@ -46,6 +45,7 @@ const typeDefs = gql`
         budget: String!,
         amount: Float!
         date: Date!
+        budgetId: ID!
     }
 
     type Query {
@@ -77,7 +77,7 @@ const typeDefs = gql`
         deleteBudget(_id: ID!, accountId: ID!): Budget
         addCharge(_id: ID!, name: String!, amount: Float!, date: Date!, budget: String!): Charge
         editCharge(_id: ID!, name: String, date: String, amount: Float, budget: String): Charge
-        deleteCharge(_id: ID!, accountId: ID!): Charge
+        deleteCharge(_id: ID!): Charge
     }
    
 `;

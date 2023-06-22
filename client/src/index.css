@@ -53,3 +53,37 @@ code {
 .check-box {
   background-color: green;
 }
+
+.nav-link {
+  text-decoration: none;
+  color: gray;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.fixedbutton {
+  position: fixed;
+  bottom: 0px;
+  right: 0px; 
+  /* border: 1px solid black; */
+  font-size: 40px;
+  /* border-radius: 50%; */
+  /* padding-bottom: 3px; */
+  /* padding-top: 3px; */
+  margin-right: 9px;
+  margin-bottom: 9px;
+  color: orange;
+  width: 40px;
+  height: 40px;
+  /* background-color: rgba(255, 114, 0, 0.69); */
+}
+
+.hamburger {
+  height: 30px;
+  width: 30px;
+}
+
+.backcolor {
+  background-color: gray;
+  border-radius: 50%;
+}

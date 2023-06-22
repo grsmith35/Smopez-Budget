@@ -17,6 +17,10 @@ const chargeSchema = new Schema(
         amount: {
             type: Number,
             require: true
+        },
+        budgetId: {
+            type: Schema.Types.ObjectId,
+            require: true
         }
     },
     {

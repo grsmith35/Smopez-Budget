@@ -157,13 +157,14 @@ const resolvers = {
                 name: args.name,
                 date: args.date,
                 budget: args.budget,
-                amount: args.amount
+                amount: args.amount,
+                budgetId: args._id,
             });
-            const addCharge = await Budget.findOneAndUpdate(
-                { _id: args._id },
-                { $push: { charges: charge._id}},
-                { new: true}
-            );
+            // const addCharge = await Budget.findOneAndUpdate(
+            //     { _id: args._id },
+            //     { $push: { charges: charge._id}},
+            //     { new: true}
+            // );
             return charge;
         },
         editCharge: async (parent, args) => {
@@ -175,11 +176,11 @@ const resolvers = {
         },
         deleteCharge: async (parent, { _id, accountId }) => {
             const charge = await Charge.findOneAndDelete({ _id: _id });
-            const removeChargeFromBudget = await Budget.findOneAndUpdate(
-                { _id: accountId },
-                { $pull: { charges: _id }},
-                { new: true }
-            )
+            // const removeChargeFromBudget = await Budget.findOneAndUpdate(
+            //     { _id: accountId },
+            //     { $pull: { charges: _id }},
+            //     { new: true }
+            // )
             return charge;
         }
     }

@@ -14,12 +14,12 @@ const budgetSchema = new Schema(
             type: Number,
             require: true
         },
-        charges: [
-            {
-                type: Schema.Types.ObjectId,
-                ref: 'Charge'
-            }
-        ]
+        // charges: [
+        //     {
+        //         type: Schema.Types.ObjectId,
+        //         ref: 'Charge'
+        //     }
+        // ]
     },
     {
         toJSON: {

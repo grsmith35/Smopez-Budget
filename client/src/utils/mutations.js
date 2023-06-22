@@ -121,8 +121,8 @@ export const DELETE_BILL = gql`
 `;
 
 export const ADD_BUDGET = gql`
-    mutation addBudget($id: ID!, $name: String!, $timePeriod: String!, $amount: Int!) {
-        addBudget(_id: $id, name: $name, timePeriod: $timePeriod, amount: $amount) {
+    mutation addBudget($_id: ID!, $name: String!, $timePeriod: String!, $amount: Int!) {
+        addBudget(_id: $_id, name: $name, timePeriod: $timePeriod, amount: $amount) {
             _id
             name
             timePeriod
@@ -132,8 +132,8 @@ export const ADD_BUDGET = gql`
 `;
 
 export const EDIT_BUDGET = gql`
-    mutation editBudget($id: ID!, $name: String, $timePeriod: String, $amount: Int) {
-        editBudget(_id: $id, name: $name, timePeriod: $timePeriod, amount: $amount) {
+    mutation editBudget($_id: ID!, $name: String, $timePeriod: String, $amount: Int) {
+        editBudget(_id: $_id, name: $name, timePeriod: $timePeriod, amount: $amount) {
             _id,
             name
             timePeriod
