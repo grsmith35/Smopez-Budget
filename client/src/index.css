@@ -45,3 +45,11 @@ code {
   display: flex;
   justify-content: flex-start;
 }
+
+.x-box {
+  background-color: red;
+}
+
+.check-box {
+  background-color: green;
+}

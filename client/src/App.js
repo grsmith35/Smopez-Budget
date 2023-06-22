@@ -77,6 +77,12 @@ function Layout() {
           <li>
             <Link to="/Bill">Bills</Link>
           </li>
+          <li>
+            <Link to="/Pay">Pay</Link>
+          </li>
+          <li>
+            <Link to="/Budget">Budget</Link>
+          </li>
         </ul>
       </nav>
       <Outlet />

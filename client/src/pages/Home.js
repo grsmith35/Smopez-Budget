@@ -6,6 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { UPDATE_ACCOUNT } from '../utils/actions';
 import Table from 'react-bootstrap/Table';
 import { formatDate } from '../utils/helpers';
+import {accountNumber} from '../utils/congif';
 
 export default function Home() {
     // const [ getAccount , { loading, error }] = useQuery(QUERY_ACCOUNT, {
@@ -13,7 +14,7 @@ export default function Home() {
     // });
     const [state, dispatch] = useStoreContext();
     const { data, loading, error } = useQuery(QUERY_ACCOUNT, {
-        variables: { _id: "648f80ba56057c890b970041"}
+        variables: { _id: '64820142c23f76f4c1519092'}
     });
 
     

@@ -7,10 +7,16 @@ import { formFieldCreator } from "../utils/helpers";
 export default function ModalForm({title, fields, editFields, closeDialog, submitFunction}) {
 
     const handleFormChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value, type } = e.target;
         const index = fields.map((field) => field.name).indexOf(name);
+        
         const newField = fields[index];
-        newField.value = value;
+        if(type === 'checkbox') {
+            newField.value = e.target.checked
+        } else {
+            newField.value = value;
+        }
+        
         const newArray = fields;
         newArray[index] = newField
         editFields(newArray);
