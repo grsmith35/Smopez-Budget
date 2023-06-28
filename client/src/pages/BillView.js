@@ -136,7 +136,7 @@ export default function BillView() {
 
     const handleDeleteBill = async (e) => {
         const removedBill = await deleteBill({
-            variables: { _id: `${e.target.id}`, accountId: "648f80ba56057c890b970041"}
+            variables: { _id: `${e.target.id}`, accountId: "64820142c23f76f4c1519092"}
         })
         if(!!removedBill) {
             setBillRemoved(e.target.id)
@@ -155,7 +155,7 @@ export default function BillView() {
 
     const handleAddBill = async () => {
         const data = await addNewBill({
-            variables: { _id: "648f80ba56057c890b970041", name: billsForm[0].value, date: billsForm[1].value, source: billsForm[2].value, amount: parseFloat(billsForm[3].value), automated: billsForm[4].value }
+            variables: { _id: "64820142c23f76f4c1519092", name: billsForm[0].value, date: billsForm[1].value, source: billsForm[2].value, amount: parseFloat(billsForm[3].value), automated: billsForm[4].value }
         })
         //todotodo update the store
         if(!!data) {

@@ -78,7 +78,7 @@ export default function BudgetsView() {
 
     const handleDeleteBudget = async (e) => {
         const removedBudget = await deleteBudget({
-            variables: { _id: `${e.target.id}`, accountId: "648f80ba56057c890b970041"}
+            variables: { _id: `${e.target.id}`, accountId: "64820142c23f76f4c1519092"}
         })
         if(!!removedBudget) {
             setBudgetRemoved(e.target.id)
@@ -97,7 +97,7 @@ export default function BudgetsView() {
 
     const handlePostBudget = async () => {
         const newBudget = await addBudgetPost({
-            variables: { _id: "648f80ba56057c890b970041", name: budgetForm[0].value, timePeriod: budgetForm[1].value, amount: parseFloat(budgetForm[2].value) }
+            variables: { _id: "64820142c23f76f4c1519092", name: budgetForm[0].value, timePeriod: budgetForm[1].value, amount: parseFloat(budgetForm[2].value) }
         });
         if(!!newBudget) {
             setBudgetAdded(newBudget.data.addBudget);

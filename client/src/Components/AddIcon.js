@@ -45,7 +45,7 @@ export default function AddIcon() {
 
     const handleSubmitCharge = async () => {
         const newCharge = await postCharge({
-            variables: { accountId: '648f80ba56057c890b970041', name: chargeForm[0].value, date: chargeForm[1].value, budgetId: chargeForm[2].value, amount: parseFloat(chargeForm[3].value)}
+            variables: { accountId: '64820142c23f76f4c1519092', name: chargeForm[0].value, date: chargeForm[1].value, budgetId: chargeForm[2].value, amount: parseFloat(chargeForm[3].value)}
         });
         if(!!newCharge) {
             setChargeAdded(newCharge.data.addCharge);

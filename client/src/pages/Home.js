@@ -5,29 +5,47 @@ import { useStoreContext } from "../utils/GlobalState";
 import Spinner from 'react-bootstrap/Spinner';
 import { UPDATE_ACCOUNT } from '../utils/actions';
 import Table from 'react-bootstrap/Table';
-import { formatDate } from '../utils/helpers';
-import {accountNumber} from '../utils/congif';
+import { formatDate, getDateArray, createArrayWithDate, sumUp } from '../utils/helpers';
+import accountNumbers from '../utils/congif';
+import moment from 'moment';
 
 export default function Home() {
     // const [ getAccount , { loading, error }] = useQuery(QUERY_ACCOUNT, {
     //     variables: { _id: localStorage.getItem('accountId')}
     // });
+    const [upcomingBills, setUpcomingBills] = React.useState();
+    const [upcomingPay, setUpcomingPay] = React.useState();
+    const [remainingAmount, setRemainingAmount] = React.useState();
+    const [remaningBudgets, setRemainingBudgets] = React.useState();
     const [state, dispatch] = useStoreContext();
     const { data, loading, error } = useQuery(QUERY_ACCOUNT, {
-        variables: { _id: '648f80ba56057c890b970041'}
+        variables: { _id: accountNumbers.an}
     });
 
+    const handleSetUpcomingBills = () => {
+        const datesComing = getDateArray();
+        const weeklyBills = state?.account?.bills?.filter((bill) => datesComing.includes(parseInt(bill.date)));
+        const finalBills = createArrayWithDate(weeklyBills);
+        setUpcomingBills(() => finalBills)
+    };
+
+    const handleSetUpcomingPay = () => {
+        const datesComing = getDateArray();
+        
+    }
     
     React.useEffect(() => {
         if(!!data) {
             dispatch({
                 type: UPDATE_ACCOUNT,
                 account: data.getAccount
-            })
+            });
+            handleSetUpcomingBills()
+            handleSetUpcomingPay()
         }
     }, [data]);
 
-    console.log(state)
+    console.log(state);
 
     return (
         <div>
@@ -51,15 +69,35 @@ export default function Home() {
                     <div style={{ backgroundColor: 'red'}}> Non-Automated Bills coming Due</div>
                     <Table striped bordered hover size='sm'>
                         <tbody>
-                            {state?.account?.bills?.filter((e) => !e.automated)?.map((bill) => (
+                            {upcomingBills?.filter((e) => !e.automated)?.map((bill) => (
                                 <tr>
                                     <td>{bill.name}</td>
-                                    <td>{formatDate(bill.date)}</td>
+                                    <td>{bill.date}</td>
                                     <td>${bill.amount}</td>
                                 </tr>
                             ))}
                         </tbody>
                     </Table>
+                    <div style={{ backgroundColor: 'yellow'}}>Automated Bills coming Due</div>
+                    <Table striped bordered hover size='sm'>
+                        <tbody>
+                            {upcomingBills?.filter((e) => e.automated)?.map((bill) => (
+                                <tr>
+                                    <td>{bill.name}</td>
+                                    <td>{bill.date}</td>
+                                    <td>${bill.amount}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                    <hr />
+                    <div className='row'>
+                        <div className='col'>
+                            Balance After Bills
+                        </div>
+                        <div className='col'>${state?.account?.balance - sumUp(upcomingBills.map((b) => b.amount))}</div>
+                    </div>
+                    <hr />
                 </div>
             )}
         </div>

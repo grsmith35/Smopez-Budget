@@ -187,7 +187,7 @@ const resolvers = {
                 { new: true }
             )
         },
-        deleteCharge: async (parent, { _id, accountId }) => {
+        deleteCharge: async (parent, { _id }) => {
             const charge = await Charge.findOneAndDelete({ _id: _id });
             // const removeChargeFromBudget = await Budget.findOneAndUpdate(
             //     { _id: accountId },

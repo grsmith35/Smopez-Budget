@@ -176,8 +176,8 @@ export const EDIT_CHARGE = gql`
 `;
 
 export const DELETE_CHARGE = gql`
-    mutation deleteCharge($_id: ID!, $accountId: ID!) {
-        deleteCharge(_id: $_id, accountId: $_id) {
+    mutation deleteCharge($_id: ID!) {
+        deleteCharge(_id: $_id) {
             _id
         }
     }

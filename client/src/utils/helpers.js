@@ -78,4 +78,83 @@ export function formFieldCreator(field) {
                 </div>
             )
     }
+};
+
+export function getDateArray() {
+    const datesComing = [];
+    const date = moment().format('D');
+    const daysInMonth = moment().daysInMonth();
+    if(parseInt(date) + 7 > daysInMonth) {
+        for(let i = parseInt(date); i <= daysInMonth; i++) {
+            datesComing.push(i)
+        }
+        const numLeft = 7 - datesComing.length;
+        for(let i = 1; i <= numLeft; i++) {
+            datesComing.push(i)
+        }
+
+        //handle end of the month stuff
+    } else {
+        //handle earlier in the month stuff
+        for(let i = 0; i < 7; i++) {
+            datesComing.push(parseInt(date) + i)
+        }
+    }
+    return datesComing;
+};
+
+export function createArrayWithDate(list) {
+    const date = moment().format('D');
+    const month = moment().format('M');
+    const year = moment().format('YYYY');
+
+    const array = sortArrayByDay(list)
+
+    return array?.map((e) => {
+        if(parseInt(e.date) > date) {
+            return {
+                ...e,
+                date: `${month}/${e.date}/${year}`
+            }
+        } else {
+            return {
+                ...e,
+                date: `${parseInt(month) + 1}/${e.date}/${year}`,
+            }
+        } 
+    })
+}
+
+export const sortArrayByDay = (array) => {
+    array?.sort((a, b) => a.date - b.date);
+    return array;
+  };
+
+export const sumUp = (array) => {
+    const sum = array.reduce((acc, cur) => {
+        return acc + cur;
+    }, 0);
+    return sum
+};
+
+export const nextPayDate = (pays, datesArr) => {
+    switch(pay.consistency){
+        case 'Weekly':
+            return (
+                //do something for weekly
+                console.log('weekly')
+            )
+        case 'Bi-weekly':
+            return (
+                console.log('Bi-weekly')
+            )
+        case "Bi-monthly":
+            return (
+                console.log('Bi-Monthly')
+            )
+        case "Monthly":
+            return (
+                console.log('Monthly')
+            )
+    }
 }

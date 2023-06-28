@@ -29,7 +29,7 @@ export default function ChargeView() {
     const handleChargeSearch = async (e) => {
         const searchedCharges = await searchCharges({
             variables: { 
-                accountId: '648f80ba56057c890b970041',
+                accountId: '64820142c23f76f4c1519092',
                 ...(!!searchForm?.budgetId && searchForm?.budgetId !== 'noBudget' && { budgetId: searchForm.budgetId }),
                 ...(!!searchForm?.startDate && { startDate: searchForm.startDate, endDate: searchForm.endDate }) 
             },

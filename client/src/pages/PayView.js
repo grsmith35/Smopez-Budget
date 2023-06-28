@@ -91,7 +91,7 @@ export default function PayView() {
 
     const handlePostPay = async () => {
         const newPay = await addNewPay({
-            variables: { _id: "648f80ba56057c890b970041", name: payForm[0].value, source: payForm[2].value, consistency: payForm[1].value, amount: parseFloat(payForm[3].value) }
+            variables: { _id: "64820142c23f76f4c1519092", name: payForm[0].value, source: payForm[2].value, consistency: payForm[1].value, amount: parseFloat(payForm[3].value) }
         })
         if(!!newPay) {
             setPayAdded(newPay.data.addPay);
@@ -101,7 +101,7 @@ export default function PayView() {
 
     const handleDeletePay = async (e) => {
         const removedPay = await deletePay({
-            variables: { _id: `${e.target.id}`, accountId: "648f80ba56057c890b970041"}
+            variables: { _id: `${e.target.id}`, accountId: "64820142c23f76f4c1519092"}
         })
         if(!!removedPay) {
             setPayRemoved(e.target.id)
