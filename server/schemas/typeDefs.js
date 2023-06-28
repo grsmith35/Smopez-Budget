@@ -42,17 +42,18 @@ const typeDefs = gql`
     type Charge {
         _id: ID
         name: String!,
-        budget: String!,
         amount: Float!
         date: Date!
         budgetId: ID!
+        accountId: ID!
     }
 
     type Query {
         getAccounts: [Account]
         getAccount(_id: ID!): Account
         getBudget(_id: ID!): Budget
-        #getPays(_id: ID!): Pay
+        getAllCharges: [Charge]
+        getCharges(accountId: ID! startDate: Date, endDate: Date, budgetId: ID): [Charge]
     }
 
     type Auth {
@@ -75,8 +76,8 @@ const typeDefs = gql`
         addBudget(_id: ID!, name: String!, timePeriod: String!, amount: Int!): Budget
         editBudget(_id: ID!, name: String, timePeriod: String, amount: Int): Budget
         deleteBudget(_id: ID!, accountId: ID!): Budget
-        addCharge(_id: ID!, name: String!, amount: Float!, date: Date!, budget: String!): Charge
-        editCharge(_id: ID!, name: String, date: String, amount: Float, budget: String): Charge
+        addCharge(name: String!, amount: Float!, date: Date!, accountId: ID, budgetId: ID): Charge
+        editCharge(_id: ID!, name: String, date: String, amount: Float, budgetId: ID): Charge
         deleteCharge(_id: ID!): Charge
     }
    

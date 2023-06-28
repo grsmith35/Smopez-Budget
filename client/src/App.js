@@ -73,24 +73,26 @@ function App() {
   );
 }
 
+
 function Layout() {
   return (
     <div>
-      <Nav className='justify-content-start'>
-      <Dropdown as={NavItem} className='float-left'>
-        <Dropdown.Toggle as={NavLink}>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list hamburger" viewBox="0 0 16 16">
-            <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
-          </svg>
-        </Dropdown.Toggle>
-        <Dropdown.Menu className='drop-down'>
-          <Dropdown.Item><Link to="/Home" className='nav-link'>Home</Link></Dropdown.Item>
-          <Dropdown.Item><Link to="/Bill" className='nav-link'>Bills</Link></Dropdown.Item>
-          <Dropdown.Item><Link to="/Pay" className='nav-link'>Income</Link></Dropdown.Item>
-          <Dropdown.Item><Link to="/Budget" className='nav-link'>Budgets</Link></Dropdown.Item>
-          <Dropdown.Item><Link to="/Charges" className='nav-link'>Charges</Link></Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
+      <Nav>
+        <Dropdown as={NavItem} className='justify-content-start'>
+          <Dropdown.Toggle as={NavLink}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list hamburger" viewBox="0 0 16 16">
+              <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+          </Dropdown.Toggle>
+          <Dropdown.Menu className='drop-down'>
+            <Dropdown.Item id="Home"><Link to="/Home" className='nav-link'>Home</Link></Dropdown.Item>
+            <Dropdown.Item id="Bill"><Link to="/Bill" className='nav-link'>Bills</Link></Dropdown.Item>
+            <Dropdown.Item id="Income"><Link to="/Pay" className='nav-link'>Income</Link></Dropdown.Item>
+            <Dropdown.Item id="Budget"><Link to="/Budget" className='nav-link'>Budgets</Link></Dropdown.Item>
+            <Dropdown.Item id="Charges"><Link to="/Charges" className='nav-link'>Charges</Link></Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        {/* <div className='justify-content-center'>{page}</div> */}
       </Nav>
       <Outlet />
     </div>

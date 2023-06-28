@@ -153,24 +153,24 @@ export const DELETE_BUDGET = gql`
 `;
 
 export const ADD_CHARGE = gql`
-    mutation addCharge($_id: ID!, $name: String!, $amount: Float!, $date: Date!, $budget: String!) {
-        addCharge(_id: $_id, name: $name, amount: $amount, date: $date, budget: $budget) {
+    mutation addCharge($name: String!, $amount: Float!, $date: Date!, $budgetId: ID!, $accountId: ID!) {
+        addCharge(name: $name, amount: $amount, date: $date, budgetId: $budgetId, accountId: $accountId) {
             _id
             name
             amount
             date
-            budget
         }
     }
 `;
 
 export const EDIT_CHARGE = gql`
-    mutation editCharge($_id: ID!, $name: String, $date: String, $amount: Float, $budget: String) {
-        editCharge(_id: $_id, name: $name, date: $date, amount: $amount, budget: $budget) {
+    mutation editCharge($_id: ID!, $name: String, $date: String, $amount: Float, $budgetId: ID) {
+        editCharge(_id: $_id, name: $name, date: $date, amount: $amount, budgetId: $budgetId) {
             _id
             name
             date
             amount
+            budgetId
         }
     }
 `;

@@ -53,7 +53,6 @@ export default function PayView() {
     };
     
     const handleEditPay = (e) => {
-        console.log(e.target);
         const payToEdit = state?.account?.pays?.filter((pay) => pay._id === e.target.id)
         setEditPayId(() => payToEdit[0]._id)
         setPayForm([

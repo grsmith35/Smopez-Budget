@@ -1,6 +1,6 @@
 const { AuthenticationError } = require('apollo-server-express');
 const { Account, Pay, Bill, Budget, Charge } = require('../models');
-
+const moment = require('moment');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -20,11 +20,26 @@ const resolvers = {
         getBudget: async (parent, { _id }) => {
             return await Budget.findOne({ _id: _id })
             .populate('charges')
+        },
+        getCharges: async (parent, { budgetId, accountId, startDate, endDate }) => {
+            const filter = {
+                accountId: accountId,
+                ...(!!budgetId && { budgetId: budgetId })
+            }
+            let charges =  await Charge.find(filter)
+            if(!!startDate && !!endDate) {
+                charges = charges.filter((ac) => moment(ac.date).isAfter(startDate) && moment(ac.date).isBefore(endDate))
+            }
+            return charges;
+        },
+        getAllCharges: async () => {
+            const charges =  await Charge.find()
+            console.log(charges);
+            return charges;
         }
     },
     Mutation: {
         login: async (parent, { email, password }) => {
-            console.log('in login')
             const checkEmail = email.toLowerCase();
             const account = await Account.findOne({ email: checkEmail });
             if(!account) {
@@ -152,10 +167,11 @@ const resolvers = {
         addCharge: async (parent, args) => {
             const charge = await Charge.create({
                 name: args.name,
-                date: args.date,
-                budget: args.budget,
+                date: moment(args.date),
+                // budget: args.budget,
                 amount: args.amount,
-                budgetId: args._id,
+                budgetId: args.budgetId,
+                accountId: args.accountId
             });
             // const addCharge = await Budget.findOneAndUpdate(
             //     { _id: args._id },

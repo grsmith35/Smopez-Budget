@@ -24,7 +24,7 @@ export default function AddIcon() {
                 title: "Date",
                 type: "date",
                 name: "date",
-                value: moment(), 
+                value: moment().format('YYYY-MM-DD'),
             },
             {
                 title: "Budget",
@@ -44,9 +44,8 @@ export default function AddIcon() {
     };
 
     const handleSubmitCharge = async () => {
-        console.log(chargeForm);
         const newCharge = await postCharge({
-            variables: { _id: '64820142c23f76f4c1519092', name: chargeForm[0].value, date: chargeForm[1].value, budget: chargeForm[2].value, amount: parseFloat(chargeForm[3].value)}
+            variables: { accountId: '648f80ba56057c890b970041', name: chargeForm[0].value, date: chargeForm[1].value, budgetId: chargeForm[2].value, amount: parseFloat(chargeForm[3].value)}
         });
         if(!!newCharge) {
             setChargeAdded(newCharge.data.addCharge);

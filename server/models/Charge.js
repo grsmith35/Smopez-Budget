@@ -10,10 +10,6 @@ const chargeSchema = new Schema(
             type: Date,
             require: true,
         },
-        budget: {
-            type: String,
-            require: true
-        },
         amount: {
             type: Number,
             require: true
@@ -21,7 +17,11 @@ const chargeSchema = new Schema(
         budgetId: {
             type: Schema.Types.ObjectId,
             require: true
-        }
+        },
+        accountId: {
+            type: Schema.Types.ObjectId,
+            require: true
+        },    
     },
     {
         toJSON: {

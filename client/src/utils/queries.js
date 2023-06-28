@@ -31,3 +31,27 @@ export const QUERY_ACCOUNT = gql`
         }
     }
 `;
+
+export const QUERY_CHARGE_RANGE = gql`
+    query getCharges($accountId: ID! $startDate: Date, $endDate: Date, $budgetId: ID) {
+        getCharges(accountId: $accountId, startDate: $startDate, endDate: $endDate, budgetId: $budgetId) {
+            _id,
+            name
+            amount
+            date
+            budgetId
+        }
+    }
+`;
+
+export const QUERY_ALL_CHARGES = gql`
+    query getAllCharges {
+        getAllCharges {
+            _id
+            name
+            amount
+            date
+            budgetId
+        }
+    }
+`;
