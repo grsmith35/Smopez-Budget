@@ -51,25 +51,29 @@ export const DELETE_ACCOUNT = gql`
 `;
 
 export const ADD_PAY = gql`
-    mutation addPay($_id: ID!, $name: String!, $consistency: String!, $source: String!, $amount: Int!) {
-        addPay(_id: $_id, name: $name, consistency: $consistency, source: $source, amount: $amount) {
+    mutation addPay($_id: ID!, $name: String!, $consistency: String!, $source: String!, $amount: Int! $payDate: String, $payWeek: String) {
+        addPay(_id: $_id, name: $name, consistency: $consistency, source: $source, amount: $amount, payDate: $payDate, payWeek: $payWeek) {
             _id
             name
             consistency
             source
             amount
+            payDate
+            payWeek
         }
     }
 `;
 
 export const EDIT_PAY = gql`
-    mutation editPay($_id: ID!, $name: String, $source: String, $consistency: String, $amount: Int) {
-        editPay(_id: $_id, name: $name, source: $source, consistency: $consistency, amount: $amount) {
+    mutation editPay($_id: ID!, $name: String, $source: String, $consistency: String, $amount: Int, $payDate: String, $payWeek: String) {
+        editPay(_id: $_id, name: $name, source: $source, consistency: $consistency, amount: $amount, payDate: $payDate, payWeek: $payWeek) {
             _id
             name
             source 
             consistency
             amount
+            payDate
+            payWeek
         }
     }
 `;

@@ -79,7 +79,9 @@ const resolvers = {
                 name: args.name, 
                 consistency: args.consistency, 
                 source: args.source, 
-                amount: args.amount
+                amount: args.amount,
+                payDate: args.payDate,
+                payWeek: args.payWeek,
             });
             const addAccount = await Account.findOneAndUpdate(
                 { _id: args._id },

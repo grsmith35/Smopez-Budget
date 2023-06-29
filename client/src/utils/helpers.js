@@ -138,7 +138,7 @@ export const sumUp = (array) => {
 };
 
 export const nextPayDate = (pays, datesArr) => {
-    switch(pay.consistency){
+    switch(pays.consistency){
         case 'Weekly':
             return (
                 //do something for weekly

@@ -67,8 +67,8 @@ const typeDefs = gql`
         editAccount(_id: ID!, name: String, email: String): Account
         editAccountBalance(_id: ID!, balance: Int!): Account
         deleteAccount(_id: ID!): Account
-        addPay(_id: ID!, name: String!, consistency: String!, source: String!, amount: Int!): Pay
-        editPay(_id: ID!, name: String, source: String, consistency: String, amount: Int ): Pay
+        addPay(_id: ID!, name: String!, payDate: String, payWeek: String, consistency: String!, source: String!, amount: Int!): Pay
+        editPay(_id: ID!, name: String, source: String, payDate: String, payWeek: String consistency: String, amount: Int ): Pay
         deletePay(_id: ID!, accountId: ID!): Pay
         addBill(_id: ID!, name: String!, source: String!, date: String!, amount: Int!, automated: Boolean!): Bill
         editBill(_id: ID!, name: String, source: String, date: String, amount: Int, automated: Boolean): Bill

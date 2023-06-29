@@ -95,7 +95,7 @@ export default function Home() {
                         <div className='col'>
                             Balance After Bills
                         </div>
-                        <div className='col'>${state?.account?.balance - sumUp(upcomingBills.map((b) => b.amount))}</div>
+                        <div className='col'>${state?.account?.balance - sumUp(upcomingBills?.map((b) => b.amount))}</div>
                     </div>
                     <hr />
                 </div>

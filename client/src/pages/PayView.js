@@ -34,6 +34,18 @@ export default function PayView() {
             value: ""
         },
         {
+            title: "Pay Date(s)",
+            type: "text",
+            name: "payDate",
+            value: ""
+        },
+        {
+            title: "Pay Week",
+            type: "date",
+            name: "payWeek",
+            value: ""
+        },
+        {
             title: "Source",
             type: "text",
             name: 'source',

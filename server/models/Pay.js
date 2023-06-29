@@ -17,6 +17,12 @@ const paySchema = new Schema(
         amount: {
             type: Number,
             required: true
+        },
+        payDay: {
+            type: String
+        },
+        payWeek: {
+            type: String
         }
     },
     {
