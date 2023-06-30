@@ -13,6 +13,8 @@ export const QUERY_ACCOUNT = gql`
                 name
                 source
                 consistency
+                payDate
+                payWeek
             }
             bills {
                 _id

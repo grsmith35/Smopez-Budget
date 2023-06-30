@@ -21,6 +21,8 @@ const typeDefs = gql`
         consistency: String!
         source: String!
         amount: Int!
+        payDate: String
+        payWeek: String
     }
 
     type Bill {

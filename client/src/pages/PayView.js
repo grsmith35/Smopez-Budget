@@ -5,7 +5,8 @@ import Button from 'react-bootstrap/Button';
 import { useMutation } from "@apollo/client";
 import { ADD_PAY, DELETE_PAY, EDIT_PAY } from "../utils/mutations";
 import { UPDATE_ACCOUNT_PAYS } from "../utils/actions";
-
+import accountNumbers from "../utils/congif";
+import moment from "moment";
 
 export default function PayView() {
     const [addPay, setAddPay] = React.useState(false);
@@ -32,19 +33,7 @@ export default function PayView() {
             items: [{ value: "Weekly", name: "weekly" }, {value: "Bi-weekly", name: "Bi-weekly" }, { value: "Bi-monthly", name: "Bi-monthly" }, { value: "Monthly", name: "Monthly" }],
             name: 'consistency',
             value: ""
-        },
-        {
-            title: "Pay Date(s)",
-            type: "text",
-            name: "payDate",
-            value: ""
-        },
-        {
-            title: "Pay Week",
-            type: "date",
-            name: "payWeek",
-            value: ""
-        },
+        },   
         {
             title: "Source",
             type: "text",
@@ -56,7 +45,19 @@ export default function PayView() {
             type: "number",
             name: "amount",
             value: "0"
-        }
+        },
+        {
+            title: "Pay Date(s)",
+            type: "text",
+            name: "payDate",
+            value: ""
+        },
+        {
+            title: "Pay Week",
+            type: "date",
+            name: "payWeek",
+            value: null
+        },
     ]);
 
     const handleCloseModal = () => {
@@ -96,14 +97,36 @@ export default function PayView() {
                 name: "amount",
                 value: payToEdit[0].amount,
                 defaultValue: payToEdit[0].amount
-            }
+            },
+            {
+                title: "Pay Date(s)",
+                type: "text",
+                name: "payDate",
+                value: payToEdit[0]?.payDate,
+                defaultValue: payToEdit[0]?.payDate
+            },
+            {
+                title: "Pay Week",
+                type: "date",
+                name: "payWeek",
+                value: payToEdit[0]?.payWeek,
+                defaultValue: payToEdit[0]?.payWeek
+            },
         ]);
         setEditPay(true);
     };
 
     const handlePostPay = async () => {
         const newPay = await addNewPay({
-            variables: { _id: "64820142c23f76f4c1519092", name: payForm[0].value, source: payForm[2].value, consistency: payForm[1].value, amount: parseFloat(payForm[3].value) }
+            variables: { 
+                _id: accountNumbers.an, 
+                name: payForm[0].value, 
+                source: payForm[2].value, 
+                consistency: payForm[1].value, 
+                amount: parseFloat(payForm[3].value),
+                payDate: payForm [4].value,
+                payWeek: payForm[5].value
+            }
         })
         if(!!newPay) {
             setPayAdded(newPay.data.addPay);
@@ -113,7 +136,7 @@ export default function PayView() {
 
     const handleDeletePay = async (e) => {
         const removedPay = await deletePay({
-            variables: { _id: `${e.target.id}`, accountId: "64820142c23f76f4c1519092"}
+            variables: { _id: `${e.target.id}`, accountId: accountNumbers.an}
         })
         if(!!removedPay) {
             setPayRemoved(e.target.id)
@@ -122,7 +145,15 @@ export default function PayView() {
 
     const handlePatchPay = async () => {
         const editedPay = await editPayPatch({
-            variables: { _id: editPayId, name: payForm[0].value, consistency: payForm[1].value, source: payForm[2].value, amount: parseFloat(payForm[3].value)}
+            variables: { 
+                _id: editPayId, 
+                name: payForm[0].value, 
+                consistency: payForm[1].value, 
+                source: payForm[2].value, 
+                amount: parseFloat(payForm[3].value),
+                payDate: payForm [4].value,
+                payWeek: payForm[5].value
+            }
         });
         if(!!editedPay) {
             setPayEdited(editedPay.data.editPay);

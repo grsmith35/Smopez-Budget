@@ -74,7 +74,7 @@ export function formFieldCreator(field) {
             return (
                 <div className='date-div'>  
                     <label htmlFor='date' className='row form-label'>{field.title}</label>
-                    <input id='date' type='date' name='date' className='row form-control' defaultValue={field?.value}></input>
+                    <input id='date' type='date' name={field.name} className='row form-control' defaultValue={field?.value}></input>
                 </div>
             )
     }
@@ -131,30 +131,45 @@ export const sortArrayByDay = (array) => {
   };
 
 export const sumUp = (array) => {
-    const sum = array.reduce((acc, cur) => {
+    const sum = array?.reduce((acc, cur) => {
         return acc + cur;
     }, 0);
     return sum
 };
 
 export const nextPayDate = (pays, datesArr) => {
-    switch(pays.consistency){
-        case 'Weekly':
-            return (
-                //do something for weekly
-                console.log('weekly')
-            )
-        case 'Bi-weekly':
-            return (
-                console.log('Bi-weekly')
-            )
-        case "Bi-monthly":
-            return (
-                console.log('Bi-Monthly')
-            )
-        case "Monthly":
-            return (
-                console.log('Monthly')
-            )
+    console.log(pays)
+    const comingPay = [];
+    for(let i = 0; i < pays?.length; i++) {
+        switch(pays[i].consistency){
+            case 'Weekly':
+                return (
+                    //do something for weekly
+                    console.log('weekly')
+                )
+            case 'Bi-weekly':
+                const payWeek = moment(pays[i].payWeek).week();
+                console.log(pays[i].payWeek, payWeek, pays[i])
+                const payScheduleWeek = (moment(pays[i].payWeek).week())%2 === 0;
+                const currentWeek = (moment().week())%2 === 0;
+                const curentDay = moment().isoWeekday();
+                const payDayDayOfWeek = moment(pays[i].payDate);
+                console.log(payScheduleWeek);
+                break;
+            case "Bi-monthly":
+                return (
+                    console.log('Bi-Monthly')
+                )
+            case "Monthly":
+                    console.log('Monthly', pays[i].payDate, datesArr)
+                    if(datesArr.includes(parseInt(pays[i].payDate))) {
+                        comingPay.push({
+                            ...pays[i],
+                            payDate: formatDate(pays[i].payDate)
+                        })
+                    }
+                    break;
+        }
     }
+    return comingPay;
 }

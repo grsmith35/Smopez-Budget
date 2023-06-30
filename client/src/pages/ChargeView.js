@@ -11,6 +11,7 @@ import { EDIT_CHARGE, DELETE_CHARGE } from '../utils/mutations';
 import { UPDATE_CHARGES } from '../utils/actions';
 import moment from 'moment/moment';
 import ModalForm from '../Components/ModalForm';
+import accountNumbers from '../utils/congif';
 
 export default function ChargeView() {
     const [state, dispatch] = useStoreContext();
@@ -29,7 +30,7 @@ export default function ChargeView() {
     const handleChargeSearch = async (e) => {
         const searchedCharges = await searchCharges({
             variables: { 
-                accountId: '64820142c23f76f4c1519092',
+                accountId: accountNumbers.an,
                 ...(!!searchForm?.budgetId && searchForm?.budgetId !== 'noBudget' && { budgetId: searchForm.budgetId }),
                 ...(!!searchForm?.startDate && { startDate: searchForm.startDate, endDate: searchForm.endDate }) 
             },

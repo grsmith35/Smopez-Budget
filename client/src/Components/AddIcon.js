@@ -4,6 +4,7 @@ import { useMutation } from '@apollo/client';
 import { ADD_CHARGE } from '../utils/mutations';
 import { useStoreContext } from '../utils/GlobalState';
 import moment from 'moment';
+import accountNumbers from '../utils/congif';
 
 export default function AddIcon() {
     const [addCharge, setAddCharge] = React.useState(false);
@@ -45,7 +46,7 @@ export default function AddIcon() {
 
     const handleSubmitCharge = async () => {
         const newCharge = await postCharge({
-            variables: { accountId: '64820142c23f76f4c1519092', name: chargeForm[0].value, date: chargeForm[1].value, budgetId: chargeForm[2].value, amount: parseFloat(chargeForm[3].value)}
+            variables: { accountId: accountNumbers.an, name: chargeForm[0].value, date: chargeForm[1].value, budgetId: chargeForm[2].value, amount: parseFloat(chargeForm[3].value)}
         });
         if(!!newCharge) {
             setChargeAdded(newCharge.data.addCharge);

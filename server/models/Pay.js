@@ -18,7 +18,7 @@ const paySchema = new Schema(
             type: Number,
             required: true
         },
-        payDay: {
+        payDate: {
             type: String
         },
         payWeek: {

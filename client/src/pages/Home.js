@@ -5,7 +5,7 @@ import { useStoreContext } from "../utils/GlobalState";
 import Spinner from 'react-bootstrap/Spinner';
 import { UPDATE_ACCOUNT } from '../utils/actions';
 import Table from 'react-bootstrap/Table';
-import { formatDate, getDateArray, createArrayWithDate, sumUp } from '../utils/helpers';
+import { formatDate, getDateArray, createArrayWithDate, sumUp, nextPayDate } from '../utils/helpers';
 import accountNumbers from '../utils/congif';
 import moment from 'moment';
 
@@ -31,7 +31,7 @@ export default function Home() {
 
     const handleSetUpcomingPay = () => {
         const datesComing = getDateArray();
-        
+        console.log(nextPayDate(state?.account?.pays, datesComing))
     }
     
     React.useEffect(() => {
