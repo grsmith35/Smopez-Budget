@@ -1,6 +1,6 @@
 import React from 'react';
-import { useQuery } from '@apollo/client';
-import { QUERY_ACCOUNT } from '../utils/queries';
+import { useLazyQuery, useQuery } from '@apollo/client';
+import { QUERY_ACCOUNT, QUERY_CHARGE_RANGE } from '../utils/queries';
 import { useStoreContext } from "../utils/GlobalState";
 import Spinner from 'react-bootstrap/Spinner';
 import { UPDATE_ACCOUNT } from '../utils/actions';
@@ -18,6 +18,7 @@ export default function Home() {
     const [remainingAmount, setRemainingAmount] = React.useState();
     const [remaningBudgets, setRemainingBudgets] = React.useState();
     const [state, dispatch] = useStoreContext();
+    const [periodCharges] = useLazyQuery(QUERY_CHARGE_RANGE);
     const { data, loading, error } = useQuery(QUERY_ACCOUNT, {
         variables: { _id: accountNumbers.an}
     });
@@ -32,7 +33,24 @@ export default function Home() {
     const handleSetUpcomingPay = () => {
         const datesComing = getDateArray();
         console.log(nextPayDate(state?.account?.pays, datesComing))
-    }
+    };
+
+    const getCharges = async () => {
+        const date = parseInt(moment().day(Date()).format('d'));
+        console.log(date)
+        const today = moment().format('MM/DD/YYYY');
+        const startSearchDate = moment(today).subtract(date, 'days').format('MM/DD/YYYY');
+        const endSearchDate = moment(startSearchDate).add(7, 'days').format('MM/DD/YYYY');
+        console.log(startSearchDate, endSearchDate)
+        const charges = await periodCharges({
+            variables: {
+                accountId: accountNumbers.an,
+                startDate: startSearchDate,
+                endDate: endSearchDate
+            }
+        });
+        console.log(charges);
+    };
     
     React.useEffect(() => {
         if(!!data) {
@@ -40,8 +58,9 @@ export default function Home() {
                 type: UPDATE_ACCOUNT,
                 account: data.getAccount
             });
-            handleSetUpcomingBills()
-            handleSetUpcomingPay()
+            handleSetUpcomingBills();
+            handleSetUpcomingPay();
+            getCharges();
         }
     }, [data]);
 

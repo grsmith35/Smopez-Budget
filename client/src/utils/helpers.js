@@ -103,6 +103,31 @@ export function getDateArray() {
     return datesComing;
 };
 
+export function getPayDays() {
+    const dayArray = [];
+    const today = parseInt(moment().day(Date()).format('d'));
+    if(today !== 0) {
+        dayArray.push(today);
+    }
+    let currentWeek = true;
+    while(dayArray.length < 7) {
+        if(dayArray[-1] < 7) {
+            dayArray.push(dayArray[-1] + 1)
+        } 
+    };
+    for(let i = 0; dayArray.length <= 7; i++) {
+        dayArray.push(i);
+    };
+    console.log(dayArray)
+    // for(let i = 1; i <= 7; i++) {
+    //     if(dayArray[-1] < 7) {
+    //         dayArray.push(dayArray[-1] + i)
+    //     } else {
+    //         dayArray.push()
+    //     }
+    // }
+}
+
 export function createArrayWithDate(list) {
     const date = moment().format('D');
     const month = moment().format('M');
@@ -143,23 +168,33 @@ export const nextPayDate = (pays, datesArr) => {
     for(let i = 0; i < pays?.length; i++) {
         switch(pays[i].consistency){
             case 'Weekly':
-                return (
-                    //do something for weekly
-                    console.log('weekly')
-                )
+                comingPay.push(pays[i]);
+                break;
             case 'Bi-weekly':
-                const payWeek = moment(pays[i].payWeek).week();
-                console.log(pays[i].payWeek, payWeek, pays[i])
                 const payScheduleWeek = (moment(pays[i].payWeek).week())%2 === 0;
                 const currentWeek = (moment().week())%2 === 0;
-                const curentDay = moment().isoWeekday();
-                const payDayDayOfWeek = moment(pays[i].payDate);
-                console.log(payScheduleWeek);
+                const weekPayDay = moment().day(pays[i].payDate).format('d');
+                const today = moment().day(Date()).format('d');
+                if(payScheduleWeek === currentWeek) {
+                    if(parseInt(weekPayDay) > parseInt(today)) {
+                        comingPay.push(pays[i]);
+                    }
+                } else {
+                    if(parseInt(weekPayDay) < parseInt(today)) {
+                        comingPay.push(pays[i])
+                    }
+                }
                 break;
             case "Bi-monthly":
-                return (
-                    console.log('Bi-Monthly')
-                )
+                const payDays = pays[i].payDate.split(', ');
+                const payIntDays = payDays.map((e) => parseInt(e));
+                const dates = getDateArray();
+                for(let i = 0; i < payIntDays.length; i++) {
+                    if(dates.includes(payIntDays[i])) {
+                        comingPay.push(pays[i])
+                    }
+                }
+                break;
             case "Monthly":
                     console.log('Monthly', pays[i].payDate, datesArr)
                     if(datesArr.includes(parseInt(pays[i].payDate))) {
