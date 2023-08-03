@@ -12,6 +12,8 @@ import { UPDATE_CHARGES } from '../utils/actions';
 import moment from 'moment/moment';
 import ModalForm from '../Components/ModalForm';
 import accountNumbers from '../utils/congif';
+import auth from "../utils/auth";
+import Login from "./Login";
 
 export default function ChargeView() {
     const [state, dispatch] = useStoreContext();
@@ -30,7 +32,7 @@ export default function ChargeView() {
     const handleChargeSearch = async (e) => {
         const searchedCharges = await searchCharges({
             variables: { 
-                accountId: accountNumbers.an,
+                accountId: state?.account?._id,
                 ...(!!searchForm?.budgetId && searchForm?.budgetId !== 'noBudget' && { budgetId: searchForm.budgetId }),
                 ...(!!searchForm?.startDate && { startDate: searchForm.startDate, endDate: searchForm.endDate }) 
             },
@@ -132,48 +134,55 @@ export default function ChargeView() {
         setCharges();
     }, [charges]);
 
-    return (
-        <>
-            {editCharge && (
-                <ModalForm
-                title={'Edit Charge'}
-                fields={chargeForm}
-                editFields={setChargeForm}
-                submitFunction={handlePatchCharge}
-                closeDialog={handleCloseModal}
-            />
-            )}
-            <h3>Charges</h3>
-            <Accordion defaultActiveKey="0">
-                <Accordion.Item eventKey="0">
-                    <Accordion.Header>Search Criteria</Accordion.Header>
-                    <Accordion.Body>
-                        <Form onChange={handleSetSearchCriteria}>
-                            <Form.Label>Start Date</Form.Label>
-                            <Form.Control type='date' name='startDate' className='pl-3'/>
-                            <Form.Label>End Date</Form.Label>
-                            <Form.Control type='date' name='endDate' className='pl-3'/>
-                            <hr />
-                            <Form.Select className='mb-3' aria-label={'Budget'} name='budgetId' >
-                                <option value='noBudget'>Budget</option>
-                                {state?.account?.budgets?.map((b) => <option value={b._id}>{b.name}</option>)}
-                            </Form.Select>
-                            <Button variant="primary" onClick={handleChargeSearch}>Search</Button>
-                        </Form>
-                    </Accordion.Body>
-                </Accordion.Item>
-            </Accordion>
-            {state?.charges?.length > 0 && (state?.charges?.map((c) => 
-                <div className="card m-3" key={c._id} id={c._id}>
-                <div className="card-title"><h3>{c.name}</h3></div>
-                <hr />
-                <div className="card-text"><strong className="mr-3">Date:</strong>{`${moment(c.date).format('MM/DD/YYYY')}`}</div>
-                <div className="card-text"><strong>Amount:</strong>{`$${c.amount}`}</div>
-                <div className="card-text"><strong>Budget:</strong>{`${state?.account?.budgets?.find((b) => b._id === c.budgetId).name}`}</div>
-                <Button variant="primary" id={c._id} onClick={handleEditCharge}>Edit Charge</Button>
-                <Button variant="danger" id={c._id} onClick={handleDeleteCharge}>Delete Charge</Button>
-            </div>
-            ))}
-        </>
-    )
+    if(auth.loggedIn()) {
+
+        return (
+            <>
+                {editCharge && (
+                    <ModalForm
+                    title={'Edit Charge'}
+                    fields={chargeForm}
+                    editFields={setChargeForm}
+                    submitFunction={handlePatchCharge}
+                    closeDialog={handleCloseModal}
+                />
+                )}
+                <h3>Charges</h3>
+                <Accordion defaultActiveKey="0">
+                    <Accordion.Item eventKey="0">
+                        <Accordion.Header>Search Criteria</Accordion.Header>
+                        <Accordion.Body>
+                            <Form onChange={handleSetSearchCriteria}>
+                                <Form.Label>Start Date</Form.Label>
+                                <Form.Control type='date' name='startDate' className='pl-3'/>
+                                <Form.Label>End Date</Form.Label>
+                                <Form.Control type='date' name='endDate' className='pl-3'/>
+                                <hr />
+                                <Form.Select className='mb-3' aria-label={'Budget'} name='budgetId' >
+                                    <option value='noBudget'>Budget</option>
+                                    {state?.account?.budgets?.map((b) => <option value={b._id}>{b.name}</option>)}
+                                </Form.Select>
+                                <Button variant="primary" onClick={handleChargeSearch}>Search</Button>
+                            </Form>
+                        </Accordion.Body>
+                    </Accordion.Item>
+                </Accordion>
+                {state?.charges?.length > 0 && (state?.charges?.map((c) => 
+                    <div className="card m-3" key={c._id} id={c._id}>
+                    <div className="card-title"><h3>{c.name}</h3></div>
+                    <hr />
+                    <div className="card-text"><strong className="mr-3">Date:</strong>{`${moment(c.date).format('MM/DD/YYYY')}`}</div>
+                    <div className="card-text"><strong>Amount:</strong>{`$${c.amount}`}</div>
+                    <div className="card-text"><strong>Budget:</strong>{`${state?.account?.budgets?.find((b) => b._id === c.budgetId).name}`}</div>
+                    <Button variant="primary" id={c._id} onClick={handleEditCharge}>Edit Charge</Button>
+                    <Button variant="danger" id={c._id} onClick={handleDeleteCharge}>Delete Charge</Button>
+                </div>
+                ))}
+            </>
+        )
+    } else {
+        return (
+            <Login />
+        )
+    }
 };

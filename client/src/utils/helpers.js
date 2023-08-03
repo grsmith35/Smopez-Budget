@@ -118,14 +118,6 @@ export function getPayDays() {
     for(let i = 0; dayArray.length <= 7; i++) {
         dayArray.push(i);
     };
-    console.log(dayArray)
-    // for(let i = 1; i <= 7; i++) {
-    //     if(dayArray[-1] < 7) {
-    //         dayArray.push(dayArray[-1] + i)
-    //     } else {
-    //         dayArray.push()
-    //     }
-    // }
 }
 
 export function createArrayWithDate(list) {
@@ -163,12 +155,12 @@ export const sumUp = (array) => {
 };
 
 export const nextPayDate = (pays, datesArr) => {
-    console.log(pays)
     const comingPay = [];
     for(let i = 0; i < pays?.length; i++) {
         switch(pays[i].consistency){
             case 'Weekly':
-                comingPay.push(pays[i]);
+                const payDate = moment().day(pays[i].payDate).add(7, 'days').format('M/D/YYYY');
+                comingPay.push({...pays[i], date: payDate});
                 break;
             case 'Bi-weekly':
                 const payScheduleWeek = (moment(pays[i].payWeek).week())%2 === 0;
@@ -177,11 +169,13 @@ export const nextPayDate = (pays, datesArr) => {
                 const today = moment().day(Date()).format('d');
                 if(payScheduleWeek === currentWeek) {
                     if(parseInt(weekPayDay) > parseInt(today)) {
-                        comingPay.push(pays[i]);
+                        const payDate = moment().day(pays[i].payDate).format('M/D/YYYY');
+                        comingPay.push({ ...pays[i], date: payDate });
                     }
                 } else {
                     if(parseInt(weekPayDay) < parseInt(today)) {
-                        comingPay.push(pays[i])
+                        const payDate = moment().day(pays[i].payDate).add(7, 'days').format('M/D/YYYY');
+                        comingPay.push({ ...pays[i], date: payDate })
                     }
                 }
                 break;
@@ -191,20 +185,37 @@ export const nextPayDate = (pays, datesArr) => {
                 const dates = getDateArray();
                 for(let i = 0; i < payIntDays.length; i++) {
                     if(dates.includes(payIntDays[i])) {
-                        comingPay.push(pays[i])
+                        const payDate = formatDate(payIntDays[i])
+                        comingPay.push({...pays[i], date: payDate })
                     }
                 }
                 break;
             case "Monthly":
-                    console.log('Monthly', pays[i].payDate, datesArr)
                     if(datesArr.includes(parseInt(pays[i].payDate))) {
                         comingPay.push({
                             ...pays[i],
-                            payDate: formatDate(pays[i].payDate)
+                            date: formatDate(pays[i].payDate)
                         })
                     }
                     break;
         }
     }
     return comingPay;
+};
+
+export const organizeCharges = (charges, budgets) => {
+    const budgetStatus = budgets?.map((b) => {
+        const weeklyBudget = b.timePeriod === 'Monthly' ? b.amount/4 : b.amount;
+        const budgetCharges = charges.filter((c) => c.budgetId === b._id)
+        return {
+            _id: b._id,
+            name: b.name,
+            amount: weeklyBudget,
+            charges: charges.filter((c) => c.budgetId === b._id),
+            remainingAmount : weeklyBudget - budgetCharges.map((e) => e.amount).reduce((val, acc) => {
+                return val + acc;
+            }, 0)
+        }
+    });
+    return budgetStatus;
 }
