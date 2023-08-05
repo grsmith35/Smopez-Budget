@@ -109,7 +109,6 @@ export function getPayDays() {
     if(today !== 0) {
         dayArray.push(today);
     }
-    let currentWeek = true;
     while(dayArray.length < 7) {
         if(dayArray[-1] < 7) {
             dayArray.push(dayArray[-1] + 1)
@@ -118,14 +117,6 @@ export function getPayDays() {
     for(let i = 0; dayArray.length <= 7; i++) {
         dayArray.push(i);
     };
-    console.log(dayArray)
-    // for(let i = 1; i <= 7; i++) {
-    //     if(dayArray[-1] < 7) {
-    //         dayArray.push(dayArray[-1] + i)
-    //     } else {
-    //         dayArray.push()
-    //     }
-    // }
 }
 
 export function createArrayWithDate(list) {
