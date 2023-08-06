@@ -7,6 +7,8 @@ import { ADD_PAY, DELETE_PAY, EDIT_PAY } from "../utils/mutations";
 import { UPDATE_ACCOUNT_PAYS } from "../utils/actions";
 import accountNumbers from "../utils/congif";
 import moment from "moment";
+import auth from "../utils/auth";
+import Login from "./Login";
 
 export default function PayView() {
     const [addPay, setAddPay] = React.useState(false);
@@ -119,7 +121,7 @@ export default function PayView() {
     const handlePostPay = async () => {
         const newPay = await addNewPay({
             variables: { 
-                _id: accountNumbers.an, 
+                _id: state?.account?._id, 
                 name: payForm[0].value, 
                 source: payForm[2].value, 
                 consistency: payForm[1].value, 
@@ -136,7 +138,7 @@ export default function PayView() {
 
     const handleDeletePay = async (e) => {
         const removedPay = await deletePay({
-            variables: { _id: `${e.target.id}`, accountId: accountNumbers.an}
+            variables: { _id: `${e.target.id}`, accountId: state?.account?._id}
         })
         if(!!removedPay) {
             setPayRemoved(e.target.id)
@@ -198,44 +200,51 @@ export default function PayView() {
         setPayEdited(null);
     }, [payRemoved, payEdited])
 
-    return (
-        <>
-            {editPay && (
-                <ModalForm
-                    title={'Edit Pay'}
-                    fields={payForm}
-                    editFields={setPayForm}
-                    submitFunction={handlePatchPay}
-                    closeDialog={handleCloseModal}
-                />
-            )}
-            {addPay && (
-                <ModalForm
-                    title={'Add Pay'}
-                    fields={payForm}
-                    editFields={setPayForm}
-                    submitFunction={handlePostPay}
-                    closeDialog={handleCloseModal}
-                />
-            )}
-            <h3>Pay Sources</h3>
-            {state?.account?.pay?.length === 0 && (
-                <div>Add your First Pay Source</div>
-            )}
-            <div>
-                <Button variant="primary" onClick={handleOpenModal}>Add Pay</Button>
-            </div>
-            {!!state?.account?.pays?.length && (state?.account?.pays?.map((pay) => (
-                        <div className="card m-3" key={pay.name} id={pay.name}>
-                            <div className="card-title"><h3>{pay.name}</h3></div>
-                            <hr />
-                            <div className="card-text">Amount: {pay.amount}</div>
-                            <div className="card-text">Consistency: {pay.consistency}</div>
-                            <div className="card-text">Source: {pay.source}</div>
-                            <Button variant="primary" id={pay._id} onClick={handleEditPay}>Edit Pay</Button>
-                            <Button variant="danger" id={pay._id} onClick={handleDeletePay}>Delete Pay</Button>
-                        </div>
-                    )))}
-        </>
-    )
+    if(auth.loggedIn()) {
+
+        return (
+            <>
+                {editPay && (
+                    <ModalForm
+                        title={'Edit Pay'}
+                        fields={payForm}
+                        editFields={setPayForm}
+                        submitFunction={handlePatchPay}
+                        closeDialog={handleCloseModal}
+                    />
+                )}
+                {addPay && (
+                    <ModalForm
+                        title={'Add Pay'}
+                        fields={payForm}
+                        editFields={setPayForm}
+                        submitFunction={handlePostPay}
+                        closeDialog={handleCloseModal}
+                    />
+                )}
+                <h3>Pay Sources</h3>
+                {state?.account?.pay?.length === 0 && (
+                    <div>Add your First Pay Source</div>
+                )}
+                <div>
+                    <Button variant="primary" onClick={handleOpenModal}>Add Pay</Button>
+                </div>
+                {!!state?.account?.pays?.length && (state?.account?.pays?.map((pay) => (
+                            <div className="card m-3" key={pay.name} id={pay.name}>
+                                <div className="card-title"><h3>{pay.name}</h3></div>
+                                <hr />
+                                <div className="card-text">Amount: {pay.amount}</div>
+                                <div className="card-text">Consistency: {pay.consistency}</div>
+                                <div className="card-text">Source: {pay.source}</div>
+                                <Button variant="primary" id={pay._id} onClick={handleEditPay}>Edit Pay</Button>
+                                <Button variant="danger" id={pay._id} onClick={handleDeletePay}>Delete Pay</Button>
+                            </div>
+                        )))}
+            </>
+        )
+    } else {
+        return (
+            <Login />
+        )
+    }
 };
