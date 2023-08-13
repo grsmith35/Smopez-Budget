@@ -3,7 +3,8 @@ const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
 
 const { typeDefs, resolvers } = require('./schemas');
-const db = require('./config/connection')
+const db = require('./config/connection');
+const bodyParser = require("body-parser"); 
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -24,6 +25,7 @@ startServer()
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(bodyParser.json())
 
 // Serve up static assets
 if (process.env.NODE_ENV === 'production') {
