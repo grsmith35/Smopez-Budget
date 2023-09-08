@@ -24,6 +24,7 @@ import NavLink from 'react-bootstrap/NavLink';
 import AddIcon from './Components/AddIcon';
 import ChargeView from './pages/ChargeView';
 import BudgetGet from './Components/BudgetGet';
+import AddUser from './pages/AddUser';
 
 
 const httpLink = createHttpLink({
@@ -62,11 +63,13 @@ function App() {
                   <Route path="Pay" element={<PayView />} />
                   <Route path="Budget" element={<BudgetsView />} />
                   <Route path="Charges" element={<ChargeView />} />
+                  <Route path="User" element={<AddUser />} />
                   <Route path="*" element={<Home />} />
                 </Route>      
               </Routes>
             {/* </BudgetGet> */}
-            {auth.loggedIn() ? (<AddIcon />) : (<></>)}
+            {/* {auth.loggedIn() ? (<AddIcon />) : (<></>)} */}
+            <AddIcon />
             {/* <AddIcon /> */}
           </StoreProvider>
           {/* <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" className="backcolor fixedbutton bi bi-plus-circle" viewBox="0 0 16 16">

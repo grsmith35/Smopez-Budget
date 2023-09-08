@@ -50,6 +50,8 @@ export const reducer = (state, action) => {
                     balance: action.balance
                 }
             }
+        default:
+            return state
     }
 }
 

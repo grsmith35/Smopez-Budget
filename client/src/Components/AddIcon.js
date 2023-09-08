@@ -4,7 +4,6 @@ import { useMutation } from '@apollo/client';
 import { ADD_CHARGE } from '../utils/mutations';
 import { useStoreContext } from '../utils/GlobalState';
 import moment from 'moment';
-import accountNumbers from '../utils/congif';
 
 export default function AddIcon() {
     const [addCharge, setAddCharge] = React.useState(false);
@@ -30,7 +29,7 @@ export default function AddIcon() {
             {
                 title: "Budget",
                 type: "dropdown",
-                items: state?.account?.budgets.map((b) => { return {value: b._id, name: b.name }}),
+                items: state?.account?.budgets?.map((b) => { return {value: b._id, name: b.name }}) ?? [{value: 'none', name: 'none'}],
                 name: "budget",
                 value: ""
             },

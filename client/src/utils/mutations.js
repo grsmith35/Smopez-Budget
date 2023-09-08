@@ -186,3 +186,12 @@ export const DELETE_CHARGE = gql`
         }
     }
 `;
+
+export const ADD_USER = gql`
+    mutation addAccount($name: String!, $email: String!, $password: String!) {
+        addAccount(name: $name, email: $email, password: $password) {
+            _id
+            email
+        }
+    }
+`
